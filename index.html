@@ -1,480 +1,889 @@
 <!DOCTYPE html>
 <html lang="rw">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHEMA MART Manager — Duka ryawe, ryanditswe neza</title>
-<meta name="description" content="SHEMA MART Manager ibika amagurisha, stock, imyenda na raporo z'iduka ryawe — byose ku telefoni, nubwo nta interineti.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy-950:#0B1730;
-    --navy-900:#0F1F3D;
-    --navy-800:#16294F;
-    --navy-700:#1E3564;
-    --paper:#F4F1E6;
-    --paper-dim:#EAE6D5;
-    --amber:#E3A73D;
-    --amber-deep:#B97F1F;
-    --ink:#16233F;
-    --mist:#A9B3C7;
-    --mist-dim:#7C879E;
-    --green:#4DA37B;
-    --line:#D9D2BC;
-    --radius:2px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--navy-950);
-    color:var(--paper);
-    font-family:'Inter',sans-serif;
-    line-height:1.5;
-    overflow-x:hidden;
-  }
-  a{color:inherit;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
-  }
+  <title>SHEMA MART Manager — Business Management App</title>
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(11,23,48,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(169,179,199,0.15);
-  }
-  nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    height:68px;
-  }
-  .brand{
-    display:flex; align-items:center; gap:10px;
-    font-family:'Fraunces',serif; font-weight:600; font-size:1.15rem;
-    letter-spacing:0.01em;
-  }
-  .brand .mark{
-    width:30px; height:30px; border-radius:50%;
-    background:var(--amber);
-    display:flex; align-items:center; justify-content:center;
-    color:var(--navy-950); font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:0.85rem;
-  }
-  nav .cta-small{
-    background:var(--amber); color:var(--navy-950);
-    font-weight:600; font-size:0.88rem;
-    padding:9px 18px; border-radius:var(--radius);
-    text-decoration:none; letter-spacing:0.01em;
-    transition:background 0.15s ease, transform 0.15s ease;
-  }
-  nav .cta-small:hover{background:#F0B454; transform:translateY(-1px);}
-  nav .cta-small:focus-visible{outline:2px solid var(--paper); outline-offset:3px;}
+  <meta
+    name="description"
+    content="SHEMA MART Manager — app yo gucunga stock, sales, debts, expenses na profit y'iduka ryawe."
+  >
 
-  /* ---------- HERO ---------- */
-  header.hero{
-    padding:76px 0 60px;
-    position:relative;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:56px;
-    align-items:center;
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--amber);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:22px;
-    opacity:0; animation:fadeUp 0.6s ease forwards;
-  }
-  .eyebrow::before{
-    content:""; width:22px; height:1px; background:var(--amber);
-  }
-  h1{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:clamp(2.3rem, 4.6vw, 3.6rem);
-    line-height:1.08;
-    letter-spacing:-0.01em;
-    color:var(--paper);
-    max-width:12ch;
-    opacity:0; animation:fadeUp 0.7s ease 0.08s forwards;
-  }
-  h1 em{
-    font-style:italic; color:var(--amber); font-weight:500;
-  }
-  .hero-sub{
-    margin-top:22px;
-    font-size:1.08rem;
-    color:var(--mist);
-    max-width:46ch;
-    opacity:0; animation:fadeUp 0.7s ease 0.16s forwards;
-  }
-  .hero-actions{
-    margin-top:34px;
-    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
-    opacity:0; animation:fadeUp 0.7s ease 0.24s forwards;
-  }
-  .btn-primary{
-    background:var(--amber); color:var(--navy-950);
-    font-weight:600; font-size:1rem;
-    padding:15px 28px; border-radius:var(--radius);
-    text-decoration:none;
-    display:inline-flex; align-items:center; gap:10px;
-    transition:background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow:0 0 0 rgba(227,167,61,0);
-  }
-  .btn-primary:hover{background:#F0B454; transform:translateY(-2px); box-shadow:0 10px 24px rgba(227,167,61,0.22);}
-  .btn-primary:focus-visible{outline:2px solid var(--paper); outline-offset:3px;}
-  .btn-ghost{
-    color:var(--mist); text-decoration:none; font-size:0.95rem;
-    border-bottom:1px solid var(--mist-dim);
-    padding-bottom:2px;
-    transition:color 0.15s ease, border-color 0.15s ease;
-  }
-  .btn-ghost:hover{color:var(--paper); border-color:var(--paper);}
-  .hero-note{
-    margin-top:16px; font-size:0.82rem; color:var(--mist-dim);
-    opacity:0; animation:fadeUp 0.7s ease 0.3s forwards;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  /* ---------- RECEIPT CARD (signature element) ---------- */
-  .receipt-stage{
-    position:relative;
-    display:flex; justify-content:center;
-    opacity:0; animation:fadeUp 0.8s ease 0.2s forwards;
-  }
-  .receipt{
-    background:var(--paper);
-    color:var(--ink);
-    width:100%; max-width:340px;
-    padding:30px 26px 24px;
-    transform:rotate(2.5deg);
-    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55), 0 4px 14px rgba(0,0,0,0.3);
-    position:relative;
-    font-family:'IBM Plex Mono',monospace;
-  }
-  .receipt::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:-11px; height:22px;
-    background:
-      radial-gradient(circle at 8px 0, transparent 8px, var(--paper) 8.5px) 0 -11px / 20px 22px repeat-x;
-  }
-  .receipt-head{
-    text-align:center; margin-bottom:16px;
-  }
-  .receipt-head .rname{
-    font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem;
-    letter-spacing:0.01em;
-  }
-  .receipt-head .rtag{
-    font-size:0.68rem; letter-spacing:0.08em; color:var(--mist-dim); margin-top:4px;
-  }
-  .rdiv{ border-top:1px dashed var(--line); margin:14px 0; }
-  .rline{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-size:0.83rem; padding:5px 0;
-  }
-  .rline .lbl{color:var(--ink); opacity:0.82;}
-  .rline .val{font-weight:600;}
-  .rline .val.green{color:#2E7A56;}
-  .rtotal{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-size:1rem; font-weight:600; padding-top:10px;
-  }
-  .rbarcode{
-    margin-top:18px; height:34px;
-    background:repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 5px, var(--ink) 5px 6px, transparent 6px 10px);
-    opacity:0.85;
-  }
-  .rfoot{
-    text-align:center; font-size:0.66rem; letter-spacing:0.06em; color:var(--mist-dim);
-    margin-top:10px;
-  }
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-  @keyframes fadeUp{
-    from{opacity:0; transform:translateY(14px);}
-    to{opacity:1; transform:translateY(0);}
-  }
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0c1929;
+      --card: #0f2033;
+      --card-2: #12263d;
+      --white: #ffffff;
+      --text: #dbe7f5;
+      --muted: #91a4ba;
+      --line: rgba(255,255,255,0.09);
+      --accent: #f5c451;
+      --accent-dark: #dba72e;
+      --success: #46d19a;
+    }
 
-  /* ---------- LEDGER (features) ---------- */
-  section.ledger{
-    background:var(--navy-900);
-    padding:88px 0;
-    border-top:1px solid rgba(169,179,199,0.12);
-    border-bottom:1px solid rgba(169,179,199,0.12);
-  }
-  .section-head{ max-width:52ch; margin-bottom:48px; }
-  .section-eyebrow{
-    font-family:'IBM Plex Mono',monospace; font-size:0.76rem;
-    letter-spacing:0.12em; text-transform:uppercase; color:var(--amber);
-    margin-bottom:14px;
-  }
-  h2{
-    font-family:'Fraunces',serif; font-weight:600;
-    font-size:clamp(1.7rem, 2.8vw, 2.3rem);
-    line-height:1.16; color:var(--paper);
-  }
-  .ledger-list{ border-top:1px solid rgba(169,179,199,0.22); }
-  .lrow{
-    display:grid;
-    grid-template-columns:64px 1fr auto;
-    gap:24px; align-items:center;
-    padding:26px 0;
-    border-bottom:1px solid rgba(169,179,199,0.22);
-    transition:padding-left 0.2s ease, background 0.2s ease;
-  }
-  .lrow:hover{ padding-left:10px; background:rgba(227,167,61,0.05); }
-  .lrow .lnum{
-    font-family:'IBM Plex Mono',monospace; color:var(--amber);
-    font-size:0.85rem;
-  }
-  .lrow h3{
-    font-family:'Fraunces',serif; font-weight:600; font-size:1.18rem; color:var(--paper);
-    margin-bottom:5px;
-  }
-  .lrow p{ color:var(--mist); font-size:0.95rem; max-width:52ch; }
-  .lrow .ltag{
-    font-family:'IBM Plex Mono',monospace; font-size:0.72rem;
-    color:var(--green); border:1px solid rgba(77,163,123,0.4);
-    padding:5px 10px; border-radius:20px; white-space:nowrap;
-  }
-  @media (max-width:640px){
-    .lrow{ grid-template-columns:40px 1fr; }
-    .lrow .ltag{ grid-column:2; width:fit-content; margin-top:8px; }
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* ---------- TRUST ---------- */
-  section.trust{ padding:88px 0; }
-  .trust-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
-  }
-  .trust-card{
-    border:1px solid rgba(169,179,199,0.2);
-    padding:28px 24px;
-    border-radius:var(--radius);
-  }
-  .trust-card .tnum{
-    font-family:'Fraunces',serif; font-weight:600; font-size:2.1rem; color:var(--amber);
-  }
-  .trust-card h4{
-    font-size:1rem; margin-top:8px; margin-bottom:8px; color:var(--paper);
-  }
-  .trust-card p{ font-size:0.9rem; color:var(--mist); }
-  @media (max-width:820px){ .trust-grid{ grid-template-columns:1fr; } }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* ---------- DOWNLOAD CTA ---------- */
-  section.download{
-    background:linear-gradient(180deg, var(--navy-900), var(--navy-950));
-    padding:100px 0;
-    text-align:center;
-    border-top:1px solid rgba(169,179,199,0.12);
-  }
-  section.download h2{ max-width:20ch; margin:0 auto 18px; }
-  section.download .hero-sub{ margin-left:auto; margin-right:auto; }
-  .download-actions{
-    margin-top:36px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;
-  }
-  .steps{
-    margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
-    text-align:left; max-width:900px; margin-left:auto; margin-right:auto;
-  }
-  .step{
-    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--mist-dim);
-  }
-  .step b{
-    display:block; font-family:'Inter',sans-serif; font-weight:600; color:var(--paper);
-    font-size:0.95rem; margin-bottom:6px;
-  }
-  @media (max-width:820px){ .steps{ grid-template-columns:1fr; } }
+    body {
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(245,196,81,0.10), transparent 30%),
+        radial-gradient(circle at 10% 30%, rgba(36,105,170,0.12), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    padding:40px 0; border-top:1px solid rgba(169,179,199,0.15);
-  }
-  footer .wrap{
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
-  }
-  footer p{ font-size:0.82rem; color:var(--mist-dim); }
-  footer .flinks{ display:flex; gap:22px; }
-  footer a{ font-size:0.82rem; color:var(--mist); text-decoration:none; }
-  footer a:hover{ color:var(--paper); }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-  @media (max-width:900px){
-    .hero-grid{ grid-template-columns:1fr; }
-    .receipt-stage{ order:-1; margin-bottom:12px; }
-    .receipt{ transform:rotate(1.2deg); max-width:300px; }
-  }
-</style>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7,17,31,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-download {
+      padding: 11px 18px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #101010;
+      font-weight: 800;
+    }
+
+    .nav-download:hover {
+      background: var(--accent-dark);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 90px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(45px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -2px;
+      color: var(--white);
+      margin-bottom: 25px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-text {
+      max-width: 650px;
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 22px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #101010;
+      box-shadow: 0 12px 35px rgba(245,196,81,0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-note {
+      color: #71869d;
+      font-size: 12px;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: rgba(245,196,81,0.12);
+      filter: blur(80px);
+      border-radius: 50%;
+      top: 20%;
+      left: 20%;
+      z-index: -1;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 590px;
+      margin: auto;
+      filter: drop-shadow(0 30px 50px rgba(0,0,0,0.4));
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 95px 0;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 45px;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      color: var(--white);
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* FEATURES */
+
+    .features {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.015);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 28px;
+      background: linear-gradient(145deg, var(--card), rgba(15,32,51,0.65));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .feature-number {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .feature h3 {
+      color: var(--white);
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* SCREENSHOTS */
+
+    .screenshots {
+      background: var(--bg-soft);
+    }
+
+    .screens-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .screen-card {
+      padding: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .screen-card img {
+      width: 100%;
+      border-radius: 14px;
+    }
+
+    .screen-caption {
+      padding: 20px 5px 5px;
+    }
+
+    .screen-caption h3 {
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .screen-caption p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* TRUST */
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .trust-card {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .trust-icon {
+      font-size: 30px;
+      margin-bottom: 18px;
+    }
+
+    .trust-card h3 {
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .trust-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* DOWNLOAD */
+
+    .download {
+      text-align: center;
+      background:
+        radial-gradient(circle at center, rgba(245,196,81,0.12), transparent 45%),
+        var(--bg-soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .download .section-description {
+      max-width: 650px;
+      margin: 0 auto 30px;
+    }
+
+    .download-box {
+      width: min(720px, 100%);
+      margin: 35px auto 0;
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 17px 28px;
+      background: var(--accent);
+      color: #111;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .download-button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .download-info {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .step {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,0.12);
+    }
+
+    .step strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 35px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .screens-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid,
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        padding-top: 65px;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-inner {
+        min-height: 68px;
+      }
+
+      h1 {
+        font-size: 46px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .feature-grid,
+      .trust-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .download-box {
+        padding: 25px 18px;
+      }
+
+      .download-button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="mark">S</span>SHEMA MART Manager</div>
-    <a class="cta-small" href="#download">Download APK</a>
-  </div>
-</nav>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="wrap nav-inner">
 
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">App y'ubucuruzi bwo mu Rwanda</p>
-      <h1>Iduka ryawe ryose, ryanditswe <em>neza.</em></h1>
-      <p class="hero-sub">
-        SHEMA MART Manager ibika amagurisha, stock, imyenda n'inyungu y'iduka ryawe —
-        byose ku telefoni, ata interineti ikenewe. Nta na kimwe kigongana, nta na kimwe kibura.
+      <a href="#" class="brand">
+        <img src="assets/shema-software-logo.png" alt="SHEMA MART">
+        <span>SHEMA MART Manager</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#features">Ibyo ikora</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#download">Download</a>
+      </div>
+
+      <a
+        class="nav-download"
+        href="https://drive.google.com/uc?export=download&id=1TwPaH3u2arJXfygbDITGAB21n8c1RVFB"
+        target="_blank"
+        rel="noopener"
+      >
+        Download APK
+      </a>
+
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap hero-grid">
+
+      <div>
+        <p class="eyebrow">Business Management App</p>
+
+        <h1>
+          Iduka ryawe,
+          <span>ryanditswe neza.</span>
+        </h1>
+
+        <p class="hero-text">
+          SHEMA MART Manager ni application yagenewe gufasha ba nyir'amaduka
+          gucunga sales, stock, debts, expenses na profit — byose ahantu hamwe,
+          kuri telefoni yawe.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a
+            class="btn btn-primary"
+            href="https://drive.google.com/uc?export=download&id=1TwPaH3u2arJXfygbDITGAB21n8c1RVFB"
+            target="_blank"
+            rel="noopener"
+          >
+            ↓ Download APK
+          </a>
+
+          <a class="btn btn-secondary" href="#features">
+            Reba ibyo ikora
+          </a>
+
+        </div>
+
+        <p class="hero-note">
+          Android APK · Version 1.0.0 · Designed for small & growing businesses
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="assets/app-phones.png"
+          alt="SHEMA MART Manager application"
+        >
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+
+    <div class="wrap">
+
+      <div class="section-heading">
+        <p class="section-label">Ibyo SHEMA MART Manager ikora</p>
+
+        <h2>
+          Buri gikorwa cy'iduka ryawe, ahantu hamwe.
+        </h2>
+
+        <p class="section-description">
+          Ntukongere kwishingikiriza ku mpapuro nyinshi cyangwa kubara stock
+          mu mutwe. SHEMA MART Manager igufasha kumenya neza uko business yawe ihagaze.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature">
+          <div class="feature-number">01</div>
+          <h3>POS & Sales</h3>
+          <p>
+            Andika sales za buri munsi kandi ukurikire amafaranga yinjiye
+            mu buryo bworoshye.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-number">02</div>
+          <h3>Product & Stock</h3>
+          <p>
+            Menya ibicuruzwa ufite, ibyasigaye, n'igihe stock iri kugabanuka.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-number">03</div>
+          <h3>Debts</h3>
+          <p>
+            Kurikirana imyenda y'abakiriya n'amafaranga ugomba abandi.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-number">04</div>
+          <h3>Profit & Reports</h3>
+          <p>
+            Reba uko business yawe yitwaye kandi umenye profit yawe.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-number">05</div>
+          <h3>Expenses</h3>
+          <p>
+            Andika amafaranga asohoka kugira ngo umenye neza aho amafaranga ajya.
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-number">06</div>
+          <h3>Offline</h3>
+          <p>
+            App yagenewe gukora no mu gihe udafite internet ihoraho.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SCREENSHOTS -->
+  <section class="screenshots" id="screenshots">
+
+    <div class="wrap">
+
+      <div class="section-heading">
+        <p class="section-label">Reba muri App</p>
+
+        <h2>
+          Business yawe mu biganza byawe.
+        </h2>
+
+        <p class="section-description">
+          Interface yubatswe kugira ngo ibe yoroshye gukoresha,
+          yaba ku mucuruzi umwe cyangwa ku iduka rikura.
+        </p>
+      </div>
+
+      <div class="screens-grid">
+
+        <div class="screen-card">
+          <img
+            src="assets/app-phones.png"
+            alt="SHEMA MART Manager app screens"
+          >
+
+          <div class="screen-caption">
+            <h3>Dashboard & Business Management</h3>
+            <p>
+              Reba amakuru y'ingenzi ya business yawe ahantu hamwe.
+            </p>
+          </div>
+        </div>
+
+        <div class="screen-card">
+          <img
+            src="assets/settings-screen.png"
+            alt="SHEMA MART Manager settings"
+          >
+
+          <div class="screen-caption">
+            <h3>Settings</h3>
+            <p>
+              Gena application yawe uko business yawe ikeneye.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TRUST -->
+  <section>
+
+    <div class="wrap">
+
+      <div class="section-heading">
+        <p class="section-label">Kuki SHEMA MART Manager?</p>
+
+        <h2>
+          Yakozwe n'ubucuruzi bwo mu Rwanda mu bitekerezo.
+        </h2>
+      </div>
+
+      <div class="trust-grid">
+
+        <div class="trust-card">
+          <div class="trust-icon">🇷🇼</div>
+          <h3>Made for Rwanda</h3>
+          <p>
+            Yubakiwe imikorere n'ibibazo ba nyir'amaduka bahura nabyo buri munsi.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">📱</div>
+          <h3>Mobile First</h3>
+          <p>
+            Business management ushobora kujyana aho uri hose ukoresheje telefoni.
+          </p>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">⚡</div>
+          <h3>Simple & Fast</h3>
+          <p>
+            Interface yoroshye kugira ngo udatakaza umwanya ushakisha amakuru.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DOWNLOAD -->
+  <section class="download" id="download">
+
+    <div class="wrap">
+
+      <p class="section-label">Tangira uyu munsi</p>
+
+      <h2>
+        Tegura business yawe neza.
+      </h2>
+
+      <p class="section-description">
+        Kuramo SHEMA MART Manager kuri telefoni ya Android maze utangire
+        gucunga business yawe mu buryo bworoshye.
       </p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#download">
-          ⬇ Download SHEMA MART Manager
+
+      <div class="download-box">
+
+        <a
+          class="download-button"
+          href="https://drive.google.com/uc?export=download&id=1TwPaH3u2arJXfygbDITGAB21n8c1RVFB"
+          target="_blank"
+          rel="noopener"
+        >
+          ↓ Download SHEMA MART Manager (.apk)
         </a>
-        <a class="btn-ghost" href="#ledger">Reba ibyo ikora</a>
+
+        <p class="download-info">
+          Android APK · Version 1.0.0 · Download from Google Drive
+        </p>
+
+        <div class="steps">
+
+          <div class="step">
+            <strong>01 — Download</strong>
+            <span>
+              Kanda kuri Download APK ubone application.
+            </span>
+          </div>
+
+          <div class="step">
+            <strong>02 — Install</strong>
+            <span>
+              Fungura APK kuri telefoni ya Android maze uyishyiremo.
+            </span>
+          </div>
+
+          <div class="step">
+            <strong>03 — Tangira</strong>
+            <span>
+              Fungura SHEMA MART Manager maze utangire gucunga business.
+            </span>
+          </div>
+
+        </div>
+
       </div>
-      <p class="hero-note">Android APK — v1.0.0 · Free · Ntabwo bisaba interineti kugira ngo ikoreshwe</p>
+
     </div>
 
-    <div class="receipt-stage">
-      <div class="receipt">
-        <div class="receipt-head">
-          <div class="rname">SHEMA MART</div>
-          <div class="rtag">RAPORO Y'UMUNSI</div>
-        </div>
-        <div class="rdiv"></div>
-        <div class="rline"><span class="lbl">Amagurisha</span><span class="val">32</span></div>
-        <div class="rline"><span class="lbl">Ibicuruzwa bibitswe</span><span class="val">184</span></div>
-        <div class="rline"><span class="lbl">Imyenda ikurikiranwa</span><span class="val">7</span></div>
-        <div class="rline"><span class="lbl">Stock ihagaze neza</span><span class="val green">✓ OK</span></div>
-        <div class="rdiv"></div>
-        <div class="rtotal"><span>Inyungu y'uyu munsi</span><span>+12%</span></div>
-        <div class="rbarcode"></div>
-        <div class="rfoot">SHEMA-MART-MANAGER · V1.0.0</div>
-      </div>
-    </div>
-  </div>
-</header>
+  </section>
 
-<section class="ledger" id="ledger">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="section-eyebrow">Ikibitso cy'iduka ryawe</p>
-      <h2>Buri gurisha, buri deni, buri profit — byanditse ahantu hamwe.</h2>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="wrap footer-inner">
+
+      <p>
+        © 2026 SHEMA MART Manager. All rights reserved.
+      </p>
+
+      <div class="footer-links">
+        <a href="#features">Ibyo ikora</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#download">Download</a>
+      </div>
+
     </div>
 
-    <div class="ledger-list">
-      <div class="lrow">
-        <span class="lnum">01</span>
-        <div>
-          <h3>Amagurisha (POS)</h3>
-          <p>Kora igurisha mu masegonda make, tanga reseti, uzuze ibarura ry'ibicuruzwa automatique.</p>
-        </div>
-        <span class="ltag">GUKORA VUBA</span>
-      </div>
-      <div class="lrow">
-        <span class="lnum">02</span>
-        <div>
-          <h3>Stock idashira uzi</h3>
-          <p>Menya ibicuruzwa bigenda kubura mbere y'uko bishira burundu — nta gucuruza ibitagihari.</p>
-        </div>
-        <span class="ltag">AUTO ALERT</span>
-      </div>
-      <div class="lrow">
-        <span class="lnum">03</span>
-        <div>
-          <h3>Imyenda (Debts)</h3>
-          <p>Kurikirana abaguzi bagukorera imyenda n'abakugurisha bawuzuza — byombi ahantu hamwe.</p>
-        </div>
-        <span class="ltag">2-DIRECTION</span>
-      </div>
-      <div class="lrow">
-        <span class="lnum">04</span>
-        <div>
-          <h3>Cashbook & Raporo</h3>
-          <p>Menya inyungu yawe ya buri munsi, wibonere aho amafaranga yinjiye n'aho yasohotse.</p>
-        </div>
-        <span class="ltag">PDF EXPORT</span>
-      </div>
-      <div class="lrow">
-        <span class="lnum">05</span>
-        <div>
-          <h3>Backup y'amakuru</h3>
-          <p>Amakuru y'iduka ryawe arabikwa buri munsi — nubwo telefoni yawe yatakara, ntabwo atakara.</p>
-        </div>
-        <span class="ltag">DAILY</span>
-      </div>
-      <div class="lrow">
-        <span class="lnum">06</span>
-        <div>
-          <h3>Admin & Cashier</h3>
-          <p>Genzura abakozi bawe — buri wese afite uburenganzira bukwiye, byose bikurikiranwa.</p>
-        </div>
-        <span class="ltag">MULTI-USER</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="trust">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="section-eyebrow">Impamvu SHEMA MART Manager</p>
-      <h2>Yakozwe ku bucuruzi bw'u Rwanda, atari ubw'ahandi.</h2>
-    </div>
-    <div class="trust-grid">
-      <div class="trust-card">
-        <div class="tnum">RWF</div>
-        <h4>Yubatswe ku ifaranga ryacu</h4>
-        <p>Nta guhindura izindi ndenda — amafaranga, imyenda n'amagurisha byose bikorwa mu Franga Rwandais.</p>
-      </div>
-      <div class="trust-card">
-        <div class="tnum">0<span style="font-size:1.1rem;">MB</span></div>
-        <h4>Ikora ata interineti</h4>
-        <p>Amaduka menshi ntagira interineti ihoraho — SHEMA MART Manager ikora neza offline, ikoherereza raporo igihe ushakiye.</p>
-      </div>
-      <div class="trust-card">
-        <div class="tnum">24/7</div>
-        <h4>Amakuru arinzwe</h4>
-        <p>Buri gikorwa cyanditswe (activity log), buri backup ikorwa automatique — nta muntu ushobora guhisha ikosa.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="download" id="download">
-  <div class="wrap">
-    <p class="section-eyebrow" style="justify-content:center; display:flex;">Tangira uyu munsi</p>
-    <h2>Injiza SHEMA MART Manager mu iduka ryawe.</h2>
-    <p class="hero-sub">Download APK, uyishyire kuri telefoni yawe cyangwa iy'umukozi wawe — nta App Store isabwa.</p>
-    <div class="download-actions">
-      <!-- TODO: hindura href ijye kuri link nyayo ya Google Drive/APK yawe -->
-      <a class="btn-primary" href="#">⬇ Download SHEMA MART Manager (.apk)</a>
-    </div>
-
-    <div class="steps">
-      <div class="step"><b>01 — Download</b>Kanda kuri buto hejuru, APK iratangira ku telefoni yawe.</div>
-      <div class="step"><b>02 — Install</b>Fungura dosiye, kanda "Install anyway" niba Play Protect ibikangura.</div>
-      <div class="step"><b>03 — Tangira</b>Fungura app, wandike ibicuruzwa byawe, utangire kugurisha.</div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <p>© 2026 SHEMA MART Manager. Byose birabitswe.</p>
-    <div class="flinks">
-      <a href="#ledger">Ibyo ikora</a>
-      <a href="#download">Download</a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
